@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+  Route::post('insertProduct',[ProductController::class,'store']);
+  Route::get('dashboard',[ProductController::class,'index'])->name('dashboard');
+  Route::get('update_product/{id}',[ProductController::class,'updateproduct']);
+  Route::post('productupdates',[ProductController::class,'update']);
+  Route::get('delete_product/{id}',[ProductController::class,'deleteProduct']);
+  Route::get('/active/{id}',[ProductController::class,'active']);
+  Route::get('/deactive/{id}',[ProductController::class,'deactive']);
 });
+
+
